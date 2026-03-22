@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cabinet de luxopuncture – Ancy-sur-Moselle</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #f5f0e8;
+      --warm-white: #faf8f4;
+      --teal: #2a7a74;
+      --teal-light: #3d9e97;
+      --teal-pale: #e8f4f3;
+      --dark: #1e2a28;
+      --mid: #4a5e5c;
+      --accent: #c8a96a;
+      --accent-light: #f0e6d0;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--warm-white);
+      color: var(--dark);
+      overflow-x: hidden;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem 3rem;
+      background: rgba(250,248,244,0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(42,122,116,0.12);
+      transition: all 0.3s ease;
+    }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      font-weight: 400;
+      color: var(--teal);
+      letter-spacing: 0.04em;
+      line-height: 1.3;
+      text-decoration: none;
+    }
+    .nav-logo span {
+      display: block;
+      font-size: 0.7rem;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      color: var(--mid);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--teal);
+      color: white;
+      text-decoration: none;
+      padding: 0.6rem 1.4rem;
+      border-radius: 100px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .nav-cta:hover { background: var(--teal-light); transform: translateY(-1px); }
+
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 8rem 3rem 4rem;
+      gap: 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -10%;
+      right: -5%;
+      width: 55%;
+      height: 120%;
+      background: radial-gradient(ellipse at 70% 40%, rgba(42,122,116,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-orb {
+      position: absolute;
+      bottom: -8%;
+      left: -8%;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(200,169,106,0.1) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .hero-text { position: relative; z-index: 2; }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--teal-pale);
+      color: var(--teal);
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 0.4rem 1rem;
+      border-radius: 100px;
+      margin-bottom: 2rem;
+      animation: fadeUp 0.8s ease both;
+    }
+    .hero-badge::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: var(--teal);
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.8rem, 5vw, 4.2rem);
+      font-weight: 300;
+      line-height: 1.1;
+      color: var(--dark);
+      margin-bottom: 1.5rem;
+      animation: fadeUp 0.8s 0.1s ease both;
+    }
+    .hero h1 em {
+      font-style: italic;
+      color: var(--teal);
+    }
+
+    .hero-desc {
+      font-size: 1rem;
+      line-height: 1.75;
+      color: var(--mid);
+      max-width: 480px;
+      margin-bottom: 2.5rem;
+      font-weight: 300;
+      animation: fadeUp 0.8s 0.2s ease both;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      animation: fadeUp 0.8s 0.3s ease both;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--teal);
+      color: white;
+      text-decoration: none;
+      padding: 0.9rem 2rem;
+      border-radius: 100px;
+      font-size: 0.88rem;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+    .btn-primary:hover { background: var(--teal-light); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(42,122,116,0.3); }
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: transparent;
+      color: var(--teal);
+      text-decoration: none;
+      padding: 0.9rem 2rem;
+      border-radius: 100px;
+      font-size: 0.88rem;
+      font-weight: 500;
+      border: 1.5px solid var(--teal);
+      transition: all 0.2s;
+    }
+    .btn-secondary:hover { background: var(--teal-pale); }
+
+    /* ─── HERO CARD ─── */
+    .hero-visual {
+      position: relative;
+      z-index: 2;
+      animation: fadeRight 1s 0.2s ease both;
+    }
+    .hero-card {
+      background: white;
+      border-radius: 24px;
+      padding: 2.5rem;
+      box-shadow: 0 24px 64px rgba(30,42,40,0.1);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--teal), var(--accent));
+    }
+    .card-icon {
+      width: 56px; height: 56px;
+      background: var(--teal-pale);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      font-size: 1.6rem;
+    }
+    .hero-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: var(--dark);
+      margin-bottom: 0.75rem;
+    }
+    .hero-card p {
+      font-size: 0.88rem;
+      line-height: 1.7;
+      color: var(--mid);
+      font-weight: 300;
+    }
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1.5rem;
+    }
+    .tag {
+      background: var(--cream);
+      color: var(--teal);
+      font-size: 0.72rem;
+      font-weight: 500;
+      padding: 0.3rem 0.8rem;
+      border-radius: 100px;
+      letter-spacing: 0.03em;
+    }
+    .card-contact {
+      margin-top: 1.75rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--cream);
+    }
+    .contact-line {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.82rem;
+      color: var(--mid);
+      margin-bottom: 0.6rem;
+      font-weight: 400;
+    }
+    .contact-line strong { color: var(--dark); font-weight: 500; }
+
+    /* ─── SECTION BASE ─── */
+    section { padding: 6rem 3rem; }
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--teal);
+      font-weight: 500;
+      margin-bottom: 1rem;
+    }
+    .section-label::after {
+      content: '';
+      width: 30px; height: 1px;
+      background: var(--teal);
+      display: inline-block;
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 300;
+      line-height: 1.2;
+      color: var(--dark);
+      margin-bottom: 1.5rem;
+    }
+    .section-title em { font-style: italic; color: var(--teal); }
+
+    /* ─── ABOUT ─── */
+    .about {
+      background: var(--cream);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    .about-text p {
+      font-size: 0.95rem;
+      line-height: 1.8;
+      color: var(--mid);
+      font-weight: 300;
+      margin-bottom: 1.25rem;
+    }
+    .about-highlight {
+      background: white;
+      border-left: 3px solid var(--teal);
+      padding: 1.25rem 1.5rem;
+      border-radius: 0 12px 12px 0;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      font-style: italic;
+      color: var(--teal);
+      line-height: 1.5;
+      margin: 1.75rem 0;
+    }
+    .profile-card {
+      background: white;
+      border-radius: 20px;
+      padding: 2.5rem;
+      box-shadow: 0 12px 40px rgba(30,42,40,0.08);
+    }
+    .profile-avatar {
+      width: 72px; height: 72px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--teal), var(--teal-light));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      margin-bottom: 1.25rem;
+    }
+    .profile-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 400;
+      color: var(--dark);
+      margin-bottom: 0.25rem;
+    }
+    .profile-title {
+      font-size: 0.78rem;
+      color: var(--teal);
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .profile-bio {
+      font-size: 0.88rem;
+      line-height: 1.7;
+      color: var(--mid);
+      font-weight: 300;
+    }
+    .profile-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--teal-pale);
+      color: var(--teal);
+      font-size: 0.72rem;
+      font-weight: 500;
+      padding: 0.3rem 0.75rem;
+      border-radius: 100px;
+      margin-top: 1rem;
+    }
+
+    /* ─── INDICATIONS ─── */
+    .indications {
+      background: var(--warm-white);
+      text-align: center;
+    }
+    .indications > .section-label, .indications > .section-title { display: block; text-align: center; }
+    .indications .section-label { justify-content: center; }
+    .indications .section-title { margin: 0 auto 3rem; }
+    .indications-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    .indication-card {
+      background: white;
+      border-radius: 16px;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      border: 1px solid rgba(42,122,116,0.08);
+      transition: all 0.25s;
+      cursor: default;
+    }
+    .indication-card:hover {
+      border-color: var(--teal);
+      box-shadow: 0 8px 28px rgba(42,122,116,0.12);
+      transform: translateY(-3px);
+    }
+    .indication-icon {
+      font-size: 2rem;
+      margin-bottom: 0.75rem;
+      display: block;
+    }
+    .indication-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: var(--dark);
+    }
+
+    /* ─── HOW IT WORKS ─── */
+    .how {
+      background: var(--teal);
+      color: white;
+    }
+    .how .section-label { color: rgba(255,255,255,0.6); }
+    .how .section-label::after { background: rgba(255,255,255,0.4); }
+    .how .section-title { color: white; }
+    .how-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    .how-step {
+      position: relative;
+      padding-left: 1.5rem;
+    }
+    .how-step::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 6px;
+      width: 2px; height: calc(100% - 12px);
+      background: rgba(255,255,255,0.2);
+    }
+    .step-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.2);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+    .step-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      font-weight: 400;
+      color: white;
+      margin-bottom: 0.5rem;
+    }
+    .step-desc {
+      font-size: 0.85rem;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.65);
+      font-weight: 300;
+    }
+
+    /* ─── CONTACT ─── */
+    .contact {
+      background: var(--cream);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+    .contact-info p {
+      font-size: 0.92rem;
+      line-height: 1.8;
+      color: var(--mid);
+      font-weight: 300;
+      margin-bottom: 2rem;
+    }
+    .contact-items { display: flex; flex-direction: column; gap: 1.25rem; }
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+    .contact-item-icon {
+      width: 40px; height: 40px;
+      background: white;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+      box-shadow: 0 2px 8px rgba(30,42,40,0.07);
+    }
+    .contact-item-text {
+      font-size: 0.85rem;
+      line-height: 1.6;
+      color: var(--mid);
+    }
+    .contact-item-text strong {
+      display: block;
+      color: var(--dark);
+      font-weight: 500;
+      margin-bottom: 0.15rem;
+    }
+    .contact-item-text a {
+      color: var(--teal);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .contact-item-text a:hover { text-decoration: underline; }
+
+    .contact-cta {
+      background: white;
+      border-radius: 20px;
+      padding: 2.5rem;
+      box-shadow: 0 12px 40px rgba(30,42,40,0.08);
+    }
+    .contact-cta h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem;
+      font-weight: 400;
+      color: var(--dark);
+      margin-bottom: 0.75rem;
+    }
+    .contact-cta p {
+      font-size: 0.88rem;
+      color: var(--mid);
+      line-height: 1.7;
+      margin-bottom: 1.75rem;
+      font-weight: 300;
+    }
+    .cta-phone {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      background: var(--teal);
+      color: white;
+      text-decoration: none;
+      padding: 1rem 1.5rem;
+      border-radius: 14px;
+      font-weight: 500;
+      font-size: 1.05rem;
+      transition: all 0.2s;
+      margin-bottom: 1rem;
+    }
+    .cta-phone:hover { background: var(--teal-light); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(42,122,116,0.3); }
+    .cta-insta {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      color: var(--teal);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      padding: 0.75rem 0.5rem;
+      transition: opacity 0.2s;
+    }
+    .cta-insta:hover { opacity: 0.7; }
+    .disclaimer {
+      margin-top: 1.5rem;
+      padding: 1rem;
+      background: var(--cream);
+      border-radius: 10px;
+      font-size: 0.75rem;
+      color: var(--mid);
+      line-height: 1.6;
+      font-style: italic;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--dark);
+      color: rgba(255,255,255,0.5);
+      text-align: center;
+      padding: 2rem 3rem;
+      font-size: 0.78rem;
+    }
+    footer a { color: rgba(255,255,255,0.5); text-decoration: none; }
+    footer strong { color: rgba(255,255,255,0.85); }
+
+    /* ─── ANIMATIONS ─── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeRight {
+      from { opacity: 0; transform: translateX(24px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .hero, .about, .contact {
+        grid-template-columns: 1fr;
+        padding: 6rem 1.5rem 3rem;
+        gap: 2.5rem;
+      }
+      section { padding: 4rem 1.5rem; }
+      .hero-visual { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    Cabinet de Luxopuncture
+    <span>Ancy-sur-Moselle</span>
+  </a>
+  <a href="tel:0682051946" class="nav-cta">📞 Prendre rendez-vous</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <div class="hero-badge">Soins naturels · Sans aiguille · Sans douleur</div>
+    <h1>La lumière au service de votre <em>équilibre</em></h1>
+    <p class="hero-desc">Inspirée de l'acupuncture traditionnelle, la luxopuncture utilise la lumière infrarouge pour stimuler vos points réflexes — sans aiguille, sans douleur, sans risque.</p>
+    <div class="hero-actions">
+      <a href="tel:0682051946" class="btn-primary">📞 06 82 05 19 46</a>
+      <a href="#en-savoir-plus" class="btn-secondary">En savoir plus</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-card">
+      <div class="card-icon">✨</div>
+      <h3>Luxopuncture & Luxothérapie</h3>
+      <p>Une méthode douce qui stimule les points d'acupuncture par la lumière infrarouge pour rétablir l'équilibre fonctionnel de votre organisme.</p>
+      <div class="card-tags">
+        <span class="tag">Perte de poids</span>
+        <span class="tag">Arrêt du tabac</span>
+        <span class="tag">Ménopause</span>
+        <span class="tag">Stress</span>
+        <span class="tag">Sommeil</span>
+        <span class="tag">Anti-âge</span>
+      </div>
+      <div class="card-contact">
+        <div class="contact-line">📍 <strong>Ancy-sur-Moselle</strong> — 14 km au sud-ouest de Metz</div>
+        <div class="contact-line">📞 <strong>06 82 05 19 46</strong> — Sur rendez-vous uniquement</div>
+        <div class="contact-line">🚗 Déplacement à domicile sous conditions</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-orb"></div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="en-savoir-plus">
+  <div class="about-text">
+    <div class="section-label">La méthode</div>
+    <h2 class="section-title">Qu'est-ce que la <em>luxopuncture</em> ?</h2>
+    <p>Inspirée de l'acupuncture traditionnelle, la luxopuncture (ou luxothérapie) est un soin de réflexothérapie qui utilise la lumière infrarouge pour stimuler les points réflexes du corps.</p>
+    <div class="about-highlight">"Elle se pratique sans aiguille, sans douleur et sans risque."</div>
+    <p>La stimulation des points d'acupuncture provoque un réflexe pour rétablir l'équilibre fonctionnel d'un organe, du système digestif, lymphatique ou hormonal en augmentant la production de dopamine, sérotonine ou endorphine.</p>
+    <p>Comme toute réflexothérapie, il s'agit d'une méthode de santé « bien-être » qui vise à vous accompagner dans la gestion de la douleur, du stress et des troubles fonctionnels associés. Elle ne saurait se substituer à un acte médical.</p>
+  </div>
+  <div>
+    <div class="profile-card">
+      <div class="profile-avatar">👩‍⚕️</div>
+      <div class="profile-name">Émilie Jamet</div>
+      <div class="profile-title">Praticienne en luxothérapie</div>
+      <p class="profile-bio">Infirmière diplômée d'État depuis 2004, Émilie Jamet vous accompagne grâce à la luxothérapie et une prise en charge personnalisée : bilan initial, accompagnement et suivi sur mesure.</p>
+      <div class="profile-badge">✅ Infirmière diplômée d'État depuis 2004</div>
+    </div>
+  </div>
+</section>
+
+<!-- INDICATIONS -->
+<section class="indications">
+  <div class="section-label">Indications</div>
+  <h2 class="section-title">La luxothérapie peut vous aider pour…</h2>
+  <div class="indications-grid">
+    <div class="indication-card">
+      <span class="indication-icon">⚖️</span>
+      <div class="indication-name">Perte de poids</div>
+    </div>
+    <div class="indication-card">
+      <span class="indication-icon">🚭</span>
+      <div class="indication-name">Arrêt du tabac</div>
+    </div>
+    <div class="indication-card">
+      <span class="indication-icon">🌸</span>
+      <div class="indication-name">Troubles de la ménopause</div>
+    </div>
+    <div class="indication-card">
+      <span class="indication-icon">🧘</span>
+      <div class="indication-name">Stress & anxiété</div>
+    </div>
+    <div class="indication-card">
+      <span class="indication-icon">✨</span>
+      <div class="indication-name">Anti-âge du visage</div>
+    </div>
+    <div class="indication-card">
+      <span class="indication-icon">😴</span>
+      <div class="indication-name">Troubles du sommeil</div>
+    </div>
+    <div class="indication-card">
+      <span class="indication-icon">💊</span>
+      <div class="indication-name">Certaines douleurs</div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how">
+  <div class="section-label">Déroulement</div>
+  <h2 class="section-title">Comment se passe une séance ?</h2>
+  <div class="how-grid">
+    <div class="how-step">
+      <div class="step-num">01</div>
+      <div class="step-title">Bilan personnalisé</div>
+      <p class="step-desc">Un échange approfondi pour identifier vos objectifs et adapter le protocole de soins à votre situation.</p>
+    </div>
+    <div class="how-step">
+      <div class="step-num">02</div>
+      <div class="step-title">Stimulation par lumière infrarouge</div>
+      <p class="step-desc">Application de la lumière sur les points réflexes ciblés — entièrement sans aiguille et sans douleur.</p>
+    </div>
+    <div class="how-step">
+      <div class="step-num">03</div>
+      <div class="step-title">Suivi & accompagnement</div>
+      <p class="step-desc">Un programme de soins et un suivi régulier pour optimiser les résultats dans la durée.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="contact-info">
+    <div class="section-label">Contact</div>
+    <h2 class="section-title">Prenez <em>rendez-vous</em></h2>
+    <p>Les consultations se tiennent à Ancy-sur-Moselle, à 14 km au sud-ouest de Metz. Des déplacements à domicile sont possibles sous certaines conditions.</p>
+    <div class="contact-items">
+      <div class="contact-item">
+        <div class="contact-item-icon">📍</div>
+        <div class="contact-item-text">
+          <strong>Localisation</strong>
+          Ancy-sur-Moselle (14 km au sud-ouest de Metz)
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-item-icon">📞</div>
+        <div class="contact-item-text">
+          <strong>Téléphone</strong>
+          <a href="tel:0682051946">06 82 05 19 46</a>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-item-icon">🕐</div>
+        <div class="contact-item-text">
+          <strong>Horaires</strong>
+          Sur rendez-vous uniquement
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-item-icon">📸</div>
+        <div class="contact-item-text">
+          <strong>Instagram</strong>
+          <a href="https://www.instagram.com/luxopuncture.moselle/" target="_blank">@luxopuncture.moselle</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="contact-cta">
+    <h3>Prêt(e) à commencer ?</h3>
+    <p>Contactez-moi pour convenir d'un rendez-vous. Je vous accompagnerai avec une prise en charge entièrement personnalisée.</p>
+    <a href="tel:0682051946" class="cta-phone">📞 06 82 05 19 46</a>
+    <a href="https://www.instagram.com/luxopuncture.moselle/" target="_blank" class="cta-insta">
+      📸 @luxopuncture.moselle
+    </a>
+    <div class="disclaimer">
+      La luxothérapie est une méthode de santé « bien-être » et ne se substitue pas à un acte médical. En cas de problème de santé, consultez un médecin.
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 <strong>Cabinet de luxopuncture Ancy-sur-Moselle</strong> · Émilie Jamet · <a href="tel:0682051946">06 82 05 19 46</a></p>
+</footer>
+
+</body>
+</html>
